@@ -28,14 +28,14 @@ const getEmailRoute = (req, res) => {
 };
 
 const usersRouter = express.Router();
-usersRouter.get("/users", getUsersRoute);
-usersRouter.get("/users/:id", getUserRoute);
+usersRouter.get("/", getUsersRoute);
+usersRouter.get("/:id", getUserRoute);
 
 const emailsRouter = express.Router();
-emailsRouter.get("/emails", getEmailsRoute);
-emailsRouter.get("/emails/:id", getEmailRoute);
+emailsRouter.get("/", getEmailsRoute);
+emailsRouter.get("/:id", getEmailRoute);
 
-app.use(usersRouter);
-app.use(emailsRouter);
+app.use("/users", usersRouter);
+app.use("/emails", emailsRouter);
 
 app.listen(3000);
