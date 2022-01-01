@@ -25,12 +25,14 @@ const routes = {
   "GET /emails": getEmailsRoute,
 };
 
-app.use((req, res) => {
+const router = (req, res) => {
+  // Router is a function whose only responsibility is to delegate logic to another function
   // req: read-only, res: write-only.
   const route = req.method + " " + req.url;
   const handler = routes[route] || noRouteFound;
 
   handler(req, res);
-});
+};
 
+app.use(router);
 app.listen(3000);
