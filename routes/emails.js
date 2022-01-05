@@ -26,11 +26,19 @@ const updateEmailRoute = async (req, res) => {
   res.status(200).send(email);
 };
 
+const deleteEmailRoute = async (req, res) => {
+  const index = emails.findIndex((email) => email.id === req.params.id);
+  console.log(index);
+  emails.splice(index, 1);
+  res.sendStatus(204);
+};
+
 const emailsRouter = express.Router();
 
 emailsRouter.get("/", getEmailsRoute);
 emailsRouter.get("/:id", getEmailRoute);
 emailsRouter.post("/", createEmailRoute);
 emailsRouter.patch("/:id", updateEmailRoute);
+emailsRouter.delete("/:id", deleteEmailRoute);
 
 module.exports = emailsRouter;
