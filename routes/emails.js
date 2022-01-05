@@ -19,10 +19,18 @@ const createEmailRoute = async (req, res) => {
   res.status(201).send();
 };
 
+const updateEmailRoute = async (req, res) => {
+  const body = await readBody(req);
+  const email = emails.find((email) => email.id === req.params.id);
+  Object.assign(email, JSON.parse(body));
+  res.status(200).send(email);
+};
+
 const emailsRouter = express.Router();
 
 emailsRouter.get("/", getEmailsRoute);
 emailsRouter.get("/:id", getEmailRoute);
 emailsRouter.post("/", createEmailRoute);
+emailsRouter.patch("/:id", updateEmailRoute);
 
 module.exports = emailsRouter;
