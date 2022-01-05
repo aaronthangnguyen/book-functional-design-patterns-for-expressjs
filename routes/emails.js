@@ -30,7 +30,7 @@ const deleteEmailRoute = async (req, res) => {
   const index = emails.findIndex((email) => email.id === req.params.id);
   console.log(index);
   emails.splice(index, 1);
-  res.sendStatus(204);
+  res.status(204).send();
 };
 
 const emailsRouter = express.Router();
