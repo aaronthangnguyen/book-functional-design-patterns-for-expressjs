@@ -7,10 +7,7 @@ const emailsRouter = require("./routes/emails");
 // express() is a factory for building request handlers.
 const app = express();
 
-const logger = (req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
-};
+const logger = require("./lib/logger");
 
 app.use(logger);
 app.use("/users", usersRouter);
