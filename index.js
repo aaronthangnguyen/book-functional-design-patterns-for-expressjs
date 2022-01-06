@@ -1,4 +1,6 @@
 const express = require("express");
+const logger = require("./lib/logger");
+const compress = require("compression");
 
 // Routers
 const usersRouter = require("./routes/users");
@@ -7,10 +9,9 @@ const emailsRouter = require("./routes/emails");
 // express() is a factory for building request handlers.
 const app = express();
 
-const logger = require("./lib/logger");
-
 // Middlewares
 app.use(logger);
+app.use(compress(/* { threshold: 0  }*/));
 app.use("/users", usersRouter);
 app.use("/emails", emailsRouter);
 
