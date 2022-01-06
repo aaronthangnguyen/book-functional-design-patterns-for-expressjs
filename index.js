@@ -4,9 +4,15 @@ const express = require("express");
 const usersRouter = require("./routes/users");
 const emailsRouter = require("./routes/emails");
 
-let app = express();
 // express() is a factory for building request handlers.
+const app = express();
 
+const logger = (req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+};
+
+app.use(logger);
 app.use("/users", usersRouter);
 app.use("/emails", emailsRouter);
 
