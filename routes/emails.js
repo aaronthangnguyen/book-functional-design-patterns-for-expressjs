@@ -1,8 +1,9 @@
 const express = require("express");
-const jsonBodyParser = require("../lib/json-body-parser");
+const bodyParser = require("body-parser");
 const emails = require("../fixtures/emails");
 const generateId = require("../lib/generate-id");
 
+const jsonBodyParser = bodyParser.json({ limit: "100kb" });
 class NotFound extends Error {
   constructor(message) {
     super(message);
