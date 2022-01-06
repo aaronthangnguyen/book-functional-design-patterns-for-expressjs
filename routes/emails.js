@@ -1,5 +1,5 @@
 const express = require("express");
-const readBody = require("../lib/read-body");
+const jsonBodyParser = require("../lib/json-body-parser");
 const emails = require("../fixtures/emails");
 const generateId = require("../lib/generate-id");
 
@@ -13,16 +13,14 @@ const getEmailRoute = (req, res) => {
 };
 
 const createEmailRoute = async (req, res) => {
-  body = await readBody(req);
-  const newEmail = { id: generateId(), ...JSON.parse(body) };
+  const newEmail = { id: generateId(), ...req.body };
   emails.push(newEmail);
   res.status(201).send();
 };
 
 const updateEmailRoute = async (req, res) => {
-  const body = await readBody(req);
   const email = emails.find((email) => email.id === req.params.id);
-  Object.assign(email, JSON.parse(body));
+  Object.assign(email, req.body);
   res.status(200).send(email);
 };
 
@@ -38,12 +36,12 @@ const emailsRouter = express.Router();
 // prettier-ignore
 emailsRouter.route("/")
   .get(getEmailsRoute)
-  .post(createEmailRoute);
+  .post(jsonBodyParser, createEmailRoute);
 
 emailsRouter
   .route("/:id")
   .get(getEmailRoute)
-  .patch(updateEmailRoute)
+  .patch(jsonBodyParser, updateEmailRoute)
   .delete(deleteEmailRoute);
 
 module.exports = emailsRouter;
