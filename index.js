@@ -9,6 +9,7 @@ const app = express();
 
 const logger = require("./lib/logger");
 
+// Middlewares
 app.use(logger);
 app.use("/users", usersRouter);
 app.use("/emails", emailsRouter);
